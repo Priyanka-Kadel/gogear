@@ -9,6 +9,11 @@ class OnboardView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'gear_rental\assets\images\Screenshot 2024-11-29 205129.png',
+              width: 150,
+              height: 150,
+              ),
             Text(
               'Welcome to GoGear',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
