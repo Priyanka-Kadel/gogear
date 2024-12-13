@@ -25,6 +25,7 @@ class SignupView extends StatelessWidget {
                   controller: usernameController,
                   decoration: InputDecoration(
                     labelText: 'Username',
+                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
@@ -39,6 +40,7 @@ class SignupView extends StatelessWidget {
                   controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
+                    prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
@@ -56,6 +58,7 @@ class SignupView extends StatelessWidget {
                   controller: phoneController,
                   decoration: InputDecoration(
                     labelText: 'Phone Number',
+                    prefixIcon: Icon(Icons.phone),
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.phone,
@@ -74,6 +77,7 @@ class SignupView extends StatelessWidget {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    prefixIcon: Icon(Icons.password),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,

@@ -22,6 +22,7 @@ class LoginView extends StatelessWidget {
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -36,6 +37,7 @@ class LoginView extends StatelessWidget {
                 controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  prefixIcon: Icon(Icons.password),
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
