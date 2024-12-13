@@ -52,7 +52,7 @@ class LoginView extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Navigate to the dashboard if validation passes
+                    // Navigate to the dashboard if validation passesss
                     Navigator.pushNamed(context, '/dashboard');
                   }
                 },
