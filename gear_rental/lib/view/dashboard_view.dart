@@ -185,7 +185,7 @@ class DashboardView extends StatelessWidget {
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Change index dynamically as needed
+        currentIndex: 0,
         selectedItemColor: Color(0xFFA8CD00),
         unselectedItemColor: Colors.black54,
         items: [
@@ -209,8 +209,7 @@ class DashboardView extends StatelessWidget {
       ),
     );
   }
-
-  // Helper Method to Build Trending and Least Expensive Items
+  
   Widget _buildTrendingItem({required String imageUrl, required String price, required String title}) {
     return Container(
       width: 150,

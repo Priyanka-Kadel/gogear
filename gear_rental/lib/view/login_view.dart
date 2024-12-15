@@ -12,7 +12,7 @@ class LoginView extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/onboarding'); // Navigate to Onboarding screen
+            Navigator.pushReplacementNamed(context, '/'); // Navigate to Onboarding screen
           },
         ),
         backgroundColor: Colors.transparent,

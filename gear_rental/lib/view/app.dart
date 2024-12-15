@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/onboarding': (context) => OnboardView(),
+        '/': (context) => OnboardView(),
         '/login': (context) => LoginView(),
         '/signup': (context) => SignupView(),
         '/dashboard': (context) => DashboardView(),
