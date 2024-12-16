@@ -40,8 +40,6 @@ class _OnboardViewState extends State<OnboardView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Progress Indicator (Bar with Changing Points)
-            _buildProgressIndicator(),
             // PageView for Onboarding Screens
             Expanded(
               child: PageView(
@@ -86,7 +84,7 @@ class _OnboardViewState extends State<OnboardView> {
                 ],
               ),
             ),
-            // Navigation buttons with Progress Indicator in Between
+            // Navigation buttons with Progress Indicator at the bottom
             _buildNavigationButtons(),
           ],
         ),
@@ -94,10 +92,53 @@ class _OnboardViewState extends State<OnboardView> {
     );
   }
 
-  // Progress Indicator (Dots) in the Center
+  // Navigation Buttons (Skip and Next) with Progress Indicator in Between
+  Widget _buildNavigationButtons() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Column(
+        children: [
+          // Progress Indicator (dots)
+          _buildProgressIndicator(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Skip Button (only on first two pages)
+              if (_currentPage < 2)
+                TextButton(
+                  onPressed: _skip,
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(fontSize: 16, color: Colors.blue),
+                  ),
+                ),
+              // Next Button (only on first two pages)
+              if (_currentPage < 2)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFA8CD00),
+                    padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  onPressed: _nextPage,
+                  child: Text(
+                    'Next',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Progress Indicator (Dots) at the Bottom
   Widget _buildProgressIndicator() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(3, (index) {
@@ -111,45 +152,6 @@ class _OnboardViewState extends State<OnboardView> {
             ),
           );
         }),
-      ),
-    );
-  }
-
-  // Navigation Buttons (Skip and Next) with Progress Indicator in Between
-  Widget _buildNavigationButtons() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Skip Button (only on first two pages)
-          if (_currentPage < 2)
-            TextButton(
-              onPressed: _skip,
-              child: Text(
-                'Skip',
-                style: TextStyle(fontSize: 16, color: Colors.blue),
-              ),
-            ),
-          // Progress Indicator (centered between Skip and Next)
-          Expanded(child: _buildProgressIndicator()),
-          // Next Button (only on first two pages)
-          if (_currentPage < 2)
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFA8CD00),
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              onPressed: _nextPage,
-              child: Text(
-                'Next',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-        ],
       ),
     );
   }
