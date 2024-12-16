@@ -27,6 +27,11 @@ class _OnboardViewState extends State<OnboardView> {
     _pageController.jumpToPage(2); // Jump to the last page
   }
 
+  // Navigate to the page when a progress dot is clicked
+  void _goToPage(int page) {
+    _pageController.jumpToPage(page);
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -142,13 +147,16 @@ class _OnboardViewState extends State<OnboardView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(3, (index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              color: _currentPage == index ? Color(0xFFA8CD00) : Colors.grey,
-              shape: BoxShape.circle,
+          return GestureDetector(
+            onTap: () => _goToPage(index),  // Navigate to the respective page on tap
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: _currentPage == index ? Color(0xFFA8CD00) : Colors.grey,
+                shape: BoxShape.circle,
+              ),
             ),
           );
         }),
