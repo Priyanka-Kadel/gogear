@@ -1,3 +1,5 @@
+//dart run build_runner build -d
+
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
@@ -5,7 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../app/constants/hive_table_constant.dart';
 import '../../domain/entity/auth_entity.dart';
 
-part 'auth_hive_model.g.dart';
+part "auth_hive_model.g.dart";
 
 @HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel extends Equatable {
@@ -17,15 +19,12 @@ class AuthHiveModel extends Equatable {
   final String username;
   @HiveField(3)
   final String password;
-  @HiveField(4)
-  final String phone;
 
   AuthHiveModel({
     String? userId,
     required this.email,
     required this.username,
     required this.password,
-    required this.phone,
   }) : userId = userId ?? const Uuid().v4();
 
   // Initial Constructor
@@ -33,8 +32,7 @@ class AuthHiveModel extends Equatable {
       : userId = '',
         email = '',
         username = '',
-        password = '',
-        phone = '';
+        password = '';
 
   // From Entity
   factory AuthHiveModel.fromEntity(AuthEntity entity) {
@@ -43,7 +41,6 @@ class AuthHiveModel extends Equatable {
       email: entity.email,
       username: entity.username,
       password: entity.password,
-      phone: entity.phone,
     );
   }
 
@@ -54,10 +51,9 @@ class AuthHiveModel extends Equatable {
       email: email,
       username: username,
       password: password,
-      phone: phone,
     );
   }
 
   @override
-  List<Object?> get props => [userId, email, username, password, phone];
+  List<Object?> get props => [userId, email, username, password];
 }

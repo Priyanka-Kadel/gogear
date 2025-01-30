@@ -1,23 +1,34 @@
-import 'package:equatable/equatable.dart';
+part of 'register_bloc.dart';
 
-abstract class RegisterEvent extends Equatable {
+sealed class RegisterEvent extends Equatable {
+  const RegisterEvent();
+
   @override
   List<Object> get props => [];
 }
 
-class RegisterSubmitted extends RegisterEvent {
+class NavigateLoginScreenEvent extends RegisterEvent {
+  final BuildContext context;
+  final Widget destination;
+
+  const NavigateLoginScreenEvent({
+    required this.context,
+    required this.destination,
+  });
+}
+
+class RegisterUser extends RegisterEvent {
+  final BuildContext context;
   final String username;
   final String email;
-  final String phone;
   final String password;
+  final File? image;
 
-  RegisterSubmitted({
+  const RegisterUser({
+    required this.context,
     required this.username,
     required this.email,
-    required this.phone,
     required this.password,
+    this.image,
   });
-
-  @override
-  List<Object> get props => [username, email, phone, password];
 }

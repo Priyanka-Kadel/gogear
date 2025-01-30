@@ -79,14 +79,14 @@
 //   );
 // }
 
+import 'package:gear_rental/features/auth/data/data_source/local_data_source/auth_local_datasource.dart';
+import 'package:gear_rental/features/auth/domain/use_case/register_user_usecase.dart';
+import 'package:gear_rental/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:get_it/get_it.dart';
-import 'package:softwarica_student_management_bloc/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 
 import '../../core/network/hive_service.dart';
-import '../../features/auth/data/data_source/local_data_source/auth_local_datasource.dart';
 import '../../features/auth/data/repository/auth_local_repository/auth_local_repository.dart';
 import '../../features/auth/domain/use_case/login_usecase.dart';
-import '../../features/auth/domain/use_case/register_user_usecase.dart';
 import '../../features/auth/presentation/view_model/login/login_bloc.dart';
 import '../../features/auth/presentation/view_model/signup/register_bloc.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
@@ -99,8 +99,9 @@ Future<void> initDependencies() async {
   await _initHiveService();
 
   // Initialize all feature-specific dependencies
-  await _initAuthDependencies();
   await _initHomeDependencies();
+  await _initLoginDependencies();
+  await _initRegisterDependencies();
   await _initSplashScreenDependencies();
   await _initOnboardingDependencies();
 }
@@ -110,34 +111,44 @@ Future<void> _initHiveService() async {
   getIt.registerLazySingleton<HiveService>(() => HiveService());
 }
 
-// Initialize Authentication dependencies
-Future<void> _initAuthDependencies() async {
-  // Local Data Source
-  getIt.registerLazySingleton<AuthLocalDataSource>(
+_initRegisterDependencies() {
+  // init local data source
+  getIt.registerLazySingleton(
     () => AuthLocalDataSource(getIt<HiveService>()),
   );
 
-  // Local Repository
-  getIt.registerLazySingleton<AuthLocalRepository>(
+  // init local repository
+  getIt.registerLazySingleton(
     () => AuthLocalRepository(getIt<AuthLocalDataSource>()),
   );
 
-  // Use Cases
-  getIt.registerLazySingleton<LoginUseCase>(
-    () => LoginUseCase(getIt<AuthLocalRepository>()),
-  );
-
+  // register use usecase
   getIt.registerLazySingleton<RegisterUseCase>(
-    () => RegisterUseCase(getIt<AuthLocalRepository>()),
+    () => RegisterUseCase(
+      getIt<AuthLocalRepository>(),
+    ),
   );
 
-  // Blocs
   getIt.registerFactory<RegisterBloc>(
-    () => RegisterBloc(),
+    () => RegisterBloc(
+      registerUseCase: getIt(),
+    ),
+  );
+}
+
+_initLoginDependencies() async {
+  getIt.registerLazySingleton<LoginUseCase>(
+    () => LoginUseCase(
+      getIt<AuthLocalRepository>(),
+    ),
   );
 
   getIt.registerFactory<LoginBloc>(
-    () => LoginBloc(),
+    () => LoginBloc(
+      registerBloc: getIt<RegisterBloc>(),
+      homeCubit: getIt<HomeCubit>(),
+      loginUseCase: getIt<LoginUseCase>(),
+    ),
   );
 }
 

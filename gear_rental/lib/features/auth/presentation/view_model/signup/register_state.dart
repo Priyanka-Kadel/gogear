@@ -1,21 +1,25 @@
-import 'package:equatable/equatable.dart';
+part of 'register_bloc.dart';
 
-abstract class RegisterState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+class RegisterState {
+  final bool isLoading;
+  final bool isSuccess;
 
-class RegisterInitial extends RegisterState {}
+  RegisterState({
+    required this.isLoading,
+    required this.isSuccess,
+  });
 
-class RegisterLoading extends RegisterState {}
+  RegisterState.initial()
+      : isLoading = false,
+        isSuccess = false;
 
-class RegisterSuccess extends RegisterState {}
-
-class RegisterError extends RegisterState {
-  final String message;
-
-  RegisterError({required this.message});
-
-  @override
-  List<Object> get props => [message];
+  RegisterState copyWith({
+    bool? isLoading,
+    bool? isSuccess,
+  }) {
+    return RegisterState(
+      isLoading: isLoading ?? this.isLoading,
+      isSuccess: isSuccess ?? this.isSuccess,
+    );
+  }
 }

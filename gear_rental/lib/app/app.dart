@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       theme: AppTheme.getApplicationTheme(isDarkMode: false),
       home: BlocProvider.value(
         value: getIt<SplashCubit>(),
-        child: SplashView(),
+        child: const SplashView(),
       ),
     );
   }
