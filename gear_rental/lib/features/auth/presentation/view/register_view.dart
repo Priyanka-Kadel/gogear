@@ -401,6 +401,7 @@
 //     );
 //   }
 // }
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -471,7 +472,7 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 30), // Reduced space slightly
+                const SizedBox(height: 30),
                 Center(
                   child: InkWell(
                     onTap: () {
@@ -567,7 +568,7 @@ class _RegisterViewState extends State<RegisterView> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15), // Reduced space slightly
+                const SizedBox(height: 15),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -582,7 +583,7 @@ class _RegisterViewState extends State<RegisterView> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15), // Reduced space slightly
+                const SizedBox(height: 15),
                 TextFormField(
                   controller: _passwordController,
                   decoration: const InputDecoration(
@@ -598,7 +599,7 @@ class _RegisterViewState extends State<RegisterView> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15), // Reduced space slightly
+                const SizedBox(height: 15),
                 TextFormField(
                   controller: _confirmpasswordController,
                   decoration: const InputDecoration(
@@ -617,7 +618,7 @@ class _RegisterViewState extends State<RegisterView> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15), // Reduced space slightly
+                const SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -625,29 +626,31 @@ class _RegisterViewState extends State<RegisterView> {
                       backgroundColor: const Color(0xFFA8CD00),
                     ),
                     onPressed: () {
-                      if (_img == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please upload an image.'),
-                            backgroundColor: Colors.red, // Red Snackbar
-                          ),
-                        );
-                      } else if (_key.currentState!.validate()) {
-                        context.read<RegisterBloc>().add(
-                              RegisterUser(
-                                context: context,
-                                email: _emailController.text,
-                                username: _usernameController.text,
-                                password: _passwordController.text,
-                                image: _img,
-                              ),
-                            );
+                      if (_key.currentState!.validate()) {
+                        if (_img == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please upload an image.'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          context.read<RegisterBloc>().add(
+                                RegisterUser(
+                                  context: context,
+                                  email: _emailController.text,
+                                  username: _usernameController.text,
+                                  password: _passwordController.text,
+                                  image: _img,
+                                ),
+                              );
+                        }
                       }
                     },
                     child: const Text('Sign Up'),
                   ),
                 ),
-                const SizedBox(height: 15), // Reduced space slightly
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -666,7 +669,10 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                         );
                       },
-                      child: const Text('Login'),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Color(0xFFA8CD00)),
+                      ),
                     ),
                   ],
                 ),
