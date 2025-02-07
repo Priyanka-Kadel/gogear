@@ -43,5 +43,20 @@ void main() {
       verify(() => mockAuthRepository.loginUser(email, password)).called(1);
       verifyNoMoreInteractions(mockAuthRepository);
     });
+    test('should return current user successfully', () async {
+      // Arrange
+      const AuthEntity user = AuthEntity(
+          email: 'test@test.com', password: 'password', username: '');
+      when(() => mockAuthRepository.getCurrentUser())
+          .thenAnswer((_) async => const Right(user));
+
+      // Act
+      final result = await mockAuthRepository.getCurrentUser();
+
+      // Assert
+      expect(result, const Right(user));
+      verify(() => mockAuthRepository.getCurrentUser()).called(1);
+      verifyNoMoreInteractions(mockAuthRepository);
+    });
   });
 }
