@@ -41,5 +41,25 @@ void main() {
       expect(authEntity1,
           isNot(equals(authEntity3))); // Different values for some fields
     });
+
+    test(
+        'AuthEntity props should contain userId, email, username, and password',
+        () {
+      // Arrange
+      const userId = '1';
+      const email = 'test@test.com';
+      const username = 'testuser';
+      const password = 'password';
+
+      const authEntity = AuthEntity(
+        userId: userId,
+        email: email,
+        username: username,
+        password: password,
+      );
+
+      // Act & Assert
+      expect(authEntity.props, [userId, email, username, password]);
+    });
   });
 }
