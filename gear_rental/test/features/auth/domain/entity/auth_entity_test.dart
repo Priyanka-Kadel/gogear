@@ -61,5 +61,25 @@ void main() {
       // Act & Assert
       expect(authEntity.props, [userId, email, username, password]);
     });
+
+    test('AuthEntity should allow creation with null userId', () {
+      // Arrange
+      const email = 'test@test.com';
+      const username = 'testuser';
+      const password = 'password';
+
+      const authEntity = AuthEntity(
+        userId: null,
+        email: email,
+        username: username,
+        password: password,
+      );
+
+      // Act & Assert
+      expect(authEntity.userId, null);
+      expect(authEntity.email, email);
+      expect(authEntity.username, username);
+      expect(authEntity.password, password);
+    });
   });
 }
