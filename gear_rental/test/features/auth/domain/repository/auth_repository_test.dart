@@ -28,5 +28,20 @@ void main() {
       verify(() => mockAuthRepository.registerUser(user)).called(1);
       verifyNoMoreInteractions(mockAuthRepository);
     });
+    test('should login user successfully', () async {
+      // Arrange
+      const String email = 'test@test.com';
+      const String password = 'password';
+      when(() => mockAuthRepository.loginUser(email, password))
+          .thenAnswer((_) async => const Right('token'));
+
+      // Act
+      final result = await mockAuthRepository.loginUser(email, password);
+
+      // Assert
+      expect(result, const Right('token'));
+      verify(() => mockAuthRepository.loginUser(email, password)).called(1);
+      verifyNoMoreInteractions(mockAuthRepository);
+    });
   });
 }
