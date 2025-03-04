@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gear_rental/core/common/snackbar/my_snackbar.dart';
 import 'package:gear_rental/features/auth/domain/use_case/login_usecase.dart';
 import 'package:gear_rental/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:gear_rental/features/home/presentation/view/home_view.dart';
-import 'package:gear_rental/features/home/presentation/view_model/home_cubit.dart';
+import 'package:gear_rental/features/home/view/bottom_view/dashboard.dart';
+import 'package:gear_rental/features/home/view_model/home_cubit.dart';
+
+import '../../../../../core/common/snackbar/my_snackbar.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -58,7 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(isLoading: true));
         final result = await _loginUseCase(
           LoginParams(
-            email: event.email,
+            username: event.username,
             password: event.password,
           ),
         );
@@ -68,7 +69,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             emit(state.copyWith(isLoading: false, isSuccess: false));
             showMySnackBar(
               context: event.context,
-              message: "Invalid Credentials",
+              message: failure.message,
               color: Colors.red,
             );
           },
@@ -77,7 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             add(
               NavigateHomeScreenEvent(
                 context: event.context,
-                destination: const HomeView(),
+                destination: const Dashboard(),
               ),
             );
             //_homeCubit.setToken(token);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'app/app.dart';
-import 'app/di/di.dart';
-import 'core/network/hive_service.dart';
+import 'package:gear_rental/app/app.dart';
+import 'package:gear_rental/app/di/di.dart';
+import 'package:gear_rental/core/network/hive_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +13,7 @@ void main() async {
   // await HiveService().clearAll();
   // Initialize Dependencies
   await initDependencies();
+  await SharedPreferences.getInstance(); // Init once
 
   runApp(
     const App(),

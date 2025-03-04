@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gear_rental/features/auth/presentation/view_model/login/login_bloc.dart';
-
-import '../../../auth/presentation/view/login_view.dart';
+import 'package:gear_rental/view/login_view.dart';
 
 class OnboardingCubit extends Cubit<int> {
   final PageController pageController = PageController();
@@ -37,7 +36,7 @@ class OnboardingCubit extends Cubit<int> {
       MaterialPageRoute(
         builder: (context) => BlocProvider.value(
           value: _loginBloc,
-          child: LoginView(), // Navigate to Login
+          child: const LoginView(), // Navigate to Login
         ),
       ),
     );
