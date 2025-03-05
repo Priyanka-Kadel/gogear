@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gear_rental/features/cart_page.dart';
 import 'package:gear_rental/features/home/view/bottom_view/cart.dart';
 
 void main() {

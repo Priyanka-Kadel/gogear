@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gear_rental/features/home/view/bottom_view/profile_page.dart';
-import 'package:gear_rental/features/profile_page.dart';
 
 void main() {
   testWidgets('ProfilePage shows user name and email',

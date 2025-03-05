@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gear_rental/features/home/view/bottom_view/onboard_screen.dart';
-import 'package:gear_rental/features/onboarding_page.dart';
 
 void main() {
   testWidgets('OnboardingPage shows "Get Started" button',
