@@ -320,7 +320,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:gear_rental/features/home/view/bottom_view/all_gadgets_page.dart';
+import 'package:gear_rental/features/home/view/bottom_view/all_gears_page.dart';
 import 'package:gear_rental/features/home/view/bottom_view/cart.dart';
 import 'package:gear_rental/features/home/view/bottom_view/profile_page.dart';
 
@@ -337,7 +337,7 @@ class _DashboardState extends State<Dashboard> {
   // List of pages to display for each bottom navigation item
   final List<Widget> _pages = [
     DashboardHomePage(),
-    const AllGadgetsPage(),
+    const AllGearsPage(),
     const CartPage(),
     const ProfilePage(),
   ];
