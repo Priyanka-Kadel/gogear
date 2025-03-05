@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../onboarding/presentation/view/onboarding_view.dart';
-import '../../../onboarding/presentation/view_model/onboarding_cubit.dart'; // Import OnboardingCubit
+import 'package:gear_rental/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:gear_rental/features/home/view/bottom_view/onboard_screen.dart';
 
 class SplashCubit extends Cubit<void> {
-  SplashCubit(this._onboardingCubit) : super(null);
+  SplashCubit(this._loginBloc) : super(null);
 
-  final OnboardingCubit _onboardingCubit;
+  final LoginBloc _loginBloc;
 
   Future<void> init(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 2), () async {
+    await Future.delayed(const Duration(seconds: 3), () async {
+      // Open Login page or Onboarding Screen
+
       if (context.mounted) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => BlocProvider<OnboardingCubit>(
-              create: (_) => _onboardingCubit,
-              child: const OnboardView(), // Navigate to Onboarding
-            ),
+            builder: (context) => const OnboardScreen(),
           ),
         );
       }

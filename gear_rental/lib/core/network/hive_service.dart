@@ -1,14 +1,13 @@
+import 'package:gear_rental/app/constatns/hive_table_constants.dart';
+import 'package:gear_rental/features/auth/data/model/auth_hive_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../app/constants/hive_table_constant.dart';
-import '../../features/auth/data/model/auth_hive_model.dart';
 
 class HiveService {
   static Future<void> init() async {
     // Initialize the database
     var directory = await getApplicationDocumentsDirectory();
-    var path = '${directory.path}gogear.db';
+    var path = '${directory.path}gogear_gearrental.db';
 
     Hive.init(path);
 
@@ -32,28 +31,21 @@ class HiveService {
     return box.values.toList();
   }
 
-  // Login using mail and password
-  Future<AuthHiveModel?> login(String email, String password) async {
-    // var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
-    // var auth = box.values.firstWhere(
-    //     (element) =>
-    //         element.email == email && element.password == password,
-    //     orElse: () => AuthHiveModel.initial());
-    // return auth;
-
+  // Login using username and password
+  Future<AuthHiveModel?> login(String username, String password) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
-    var user = box.values.firstWhere(
-        (element) => element.email == email && element.password == password);
-    box.close();
-    return user;
+    var auth = box.values.firstWhere(
+      (element) => element.username == username && element.password == password,
+    );
+    return auth;
   }
 
   Future<void> clearAll() async {
     await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
   }
 
-  // Clear User Box
-  Future<void> clearUserBox() async {
+  // Clear customer Box
+  Future<void> clearcustomerBox() async {
     await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
   }
 
