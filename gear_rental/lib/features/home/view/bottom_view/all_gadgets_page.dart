@@ -240,13 +240,12 @@
 //     );
 //   }
 // }
-
 import 'dart:async'; // For inactivity timer
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gear_rental/features/auth/data/data_source/auth_remote_datasource/auth_remote_datasource.dart';
-import 'package:proximity_sensor/proximity_sensor.dart'; // Import proximity sensor package
+import 'package:sensors_plus/sensors_plus.dart'; // Import sensors_plus package
 
 class AllGadgetsPage extends StatefulWidget {
   const AllGadgetsPage({super.key});
@@ -261,19 +260,15 @@ class _AllGadgetsPageState extends State<AllGadgetsPage> {
 
   Timer? _inactiveTimer; // Timer for inactivity
   bool _isInactive = false; // Flag to track inactivity
+  bool _isMoving = false; // Flag to track device movement (using Gyroscope)
 
   @override
   void initState() {
     super.initState();
     _gadgetsFuture = authDataSource.getProducts();
 
-    // Initialize proximity sensor and listener for activity detection
-    ProximitySensor.events.listen((event) {
-      if (event == false) {
-        // User is far from the sensor, reset inactivity timer
-        _resetInactivityTimer();
-      }
-    });
+    // Initialize gyroscope and listener for activity detection
+    _startGyroscopeListener();
 
     // Start inactivity timer when the page is loaded
     _resetInactivityTimer();
@@ -283,6 +278,29 @@ class _AllGadgetsPageState extends State<AllGadgetsPage> {
   void dispose() {
     _inactiveTimer?.cancel(); // Cancel the timer when the widget is disposed
     super.dispose();
+  }
+
+  // Method to start gyroscope listener
+  void _startGyroscopeListener() {
+    gyroscopeEvents.listen((GyroscopeEvent event) {
+      // Check if there is significant rotation on any axis (x, y, or z)
+      if (event.x.abs() > 1.0 || event.y.abs() > 1.0 || event.z.abs() > 1.0) {
+        // Device is moving/rotating, reset the inactivity timer
+        if (!_isMoving) {
+          setState(() {
+            _isMoving = true;
+          });
+          _resetInactivityTimer();
+        }
+      } else {
+        // Device is not moving/rotating
+        if (_isMoving) {
+          setState(() {
+            _isMoving = false;
+          });
+        }
+      }
+    });
   }
 
   // Method to reset the inactivity timer
