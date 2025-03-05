@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gear_rental/features/auth/domain/use_case/register_user_usecase.dart';
 import 'package:gear_rental/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:gear_rental/features/auth/presentation/view_model/signup/register_event.dart';
 import 'package:gear_rental/features/auth/presentation/view_model/signup/register_state.dart';
